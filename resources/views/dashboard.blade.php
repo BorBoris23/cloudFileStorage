@@ -1,10 +1,8 @@
-<x-guest-layout>
-    <x-auth-card>
-
-        <x-slot name="logo">
-            логотип
-        </x-slot>
-
+<div class="dashboardContainer col-4">
+    <div class="logo col-2">
+        логотип
+    </div>
+    <div class="formContainer">
         <form>
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
@@ -13,8 +11,7 @@
             </div>
             <button type="submit" class="submitButton">Submit</button>
         </form>
-
-    </x-auth-card>
-</x-guest-layout>
+    </div>
+</div>
 
 
