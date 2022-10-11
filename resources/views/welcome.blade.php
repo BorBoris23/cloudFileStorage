@@ -3,7 +3,7 @@
 @section('content')
     @include('layouts.header')
 
-    @if(isset(Auth::user()->name))
+    @if(isset($authUser->name))
         @include('dashboard')
     @endif
 

@@ -4,9 +4,9 @@
             Cloud File Storage
         </div>
         <div class="logAndLogout">
-            @if(isset(Auth::user()->name))
+            @if(isset($authUser->name))
             <div class="btn btn-sm btn-outline-secondary textColor">
-                {{Auth::user()->name}}
+                {{$authUser->name}}
             </div>
             <div class="btn btn-sm btn-outline-secondary textColor">
                 @include('auth.logout')
