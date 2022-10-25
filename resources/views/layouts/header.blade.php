@@ -1,7 +1,7 @@
 <div class="header">
     <div class="headerContainer">
         <div class="projectName textColor">
-            Cloud File Storage
+           Cloud File Storage
         </div>
         <div class="logAndLogout">
             @if(isset($authUser->name))

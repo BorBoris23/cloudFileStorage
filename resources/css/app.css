@@ -79,5 +79,105 @@
 }
 
 .projectName {
-    padding-top: 3px;
+    padding: 3px;
 }
+
+.filesArea {
+    width: 100%;
+    height: 50px;
+    background-color: white;
+}
+
+.filesHidden {
+    opacity: 0;
+    width: 100%;
+    height: 50px;
+}
+
+.containerButton {
+    display: flex;
+    justify-content: left;
+}
+
+.helpText {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.filesListContainer {
+    margin-top: 5px;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+}
+
+.myFilesButton {
+    margin-left: 10px;
+}
+
+.deleteButton {
+    margin-left: 5px;
+    border-radius: 5px;
+    background-color: red;
+    text-align: center;
+    font-size: 120%;
+    padding: 2px;
+}
+
+.updateButton {
+    margin-left: 5px;
+    border-radius: 5px;
+    background-color: #e5e7eb;
+    text-align: center;
+    font-size: 120%;
+    padding: 2px;
+}
+
+.directoryName {
+    background-color: white;
+    color: black;
+    font-size: 150%;
+    border: 1px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.fileInput {
+    border: none;
+    width: 62%;
+    background-color: white;
+    border-radius: 5px 0px 0px 5px;
+}
+
+.workToFileForm {
+    display: flex;
+    align-items: center;
+    background-color: #1a202c;
+
+}
+
+.buttonContainer {
+    display: flex;
+}
+
+.containerUploadButton {
+    background-color: white;
+    height: 40px;
+    width: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.uploadButton {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #2563eb;
+    font-size: 0;
+    line-height: 0;
+    float: left;;
+}
+
