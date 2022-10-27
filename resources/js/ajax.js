@@ -14,6 +14,15 @@ $(document).ready (
             updateFile();
         });
 
+        $('.filesHidden').change(function ()
+        {
+            let files = this.files;
+            $('.filesArea').append('<ul class="filesList"></ul>');
+            for (let i = 0; i < files.length; i++) {
+                $('.filesList').append('<li>' + files[i].name + '</li>');
+            }
+        });
+
         function updateFile() {
             $('.workToFileForm').bind('submit', function(e) {
                 e.preventDefault();
@@ -44,7 +53,7 @@ $(document).ready (
                     success: function () {
                         $('.workToFileForm').unbind('submit');
                         if($('.filesListContainer').length === 0) {
-                            $('.formContainer').append('<p>no files</p>');
+                            $('.formContainer').append('<p class="textColor">no files</p>');
                         }
                     }
                 });
@@ -52,3 +61,4 @@ $(document).ready (
         }
     }
 )
+
