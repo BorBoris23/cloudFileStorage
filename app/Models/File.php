@@ -2,13 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-class File extends Model
+class File extends AbstractModel
 {
-    public static function getAllFilesInDirectory($directory)
+    public $items = [];
+
+    public function __construct($pathToFile)
     {
-        return Storage::allFiles($directory);
+        $this->items = $this->getFiles($pathToFile);
+    }
+
+    public function getFiles($pathToFile)
+    {
+        $files = Storage::disk('s3')->files($pathToFile);
+        return $this->getInfo($files, $pathToFile);
     }
 }

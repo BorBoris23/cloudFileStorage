@@ -26,13 +26,14 @@ $(document).ready (
         function updateFile() {
             $('.workToFileForm').bind('submit', function(e) {
                 e.preventDefault();
-                let pathToFile = $(this).find('input[name=pathToFile]').val();
+                let pathTo = $(this).find('input[name=pathTo]').val();
                 let newPathToFile = $(this).find('input[name=newFileName]').val();
-                let data = `pathToFile=${pathToFile}&newFileName=${newPathToFile}`;
+                let oldPathToFile = $(this).find('input[name=oldFileName]').val();
+                let data = `pathTo=${pathTo}&newFileName=${newPathToFile}&oldFileName=${oldPathToFile}`;
                 $.ajax({
                     type: "PATCH",
                     data: data,
-                    url: `/workToFileForm`,
+                    url: `/workToFile`,
                     success: function () {
                         $('.workToFileForm').unbind('submit');
                     }
@@ -43,13 +44,13 @@ $(document).ready (
         function deleteFile() {
             $('.workToFileForm').bind('submit', function(e) {
                 e.preventDefault();
-                let pathToFile = $(this).find('input[name=pathToFile]').val();
-                let data = `pathToFile=${pathToFile}`;
+                let pathTo = $(this).find('input[name=pathTo]').val();
+                let data = `pathTo=${pathTo}`;
                 $(this).parent().remove();
                 $.ajax({
                     type: "DELETE",
                     data: data,
-                    url: `/workToFileForm`,
+                    url: `/workToFile`,
                     success: function () {
                         $('.workToFileForm').unbind('submit');
                         if($('.filesListContainer').length === 0) {

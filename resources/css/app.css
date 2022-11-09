@@ -85,8 +85,10 @@
 .filesArea {
     width: 100%;
     background-color: white;
+    border-radius: 5px;
 }
 
+.directoryHidden,
 .filesHidden {
     /*opacity: 0;*/
     width: 100%;
@@ -110,26 +112,21 @@
     color: black;
 }
 
+.directoryForm {
+    margin-top: 10px;
+}
+
 .myFilesButton {
     margin-left: 10px;
 }
 
 .deleteButton {
     margin-left: 5px;
-    border-radius: 5px;
-    background-color: red;
-    text-align: center;
-    font-size: 120%;
-    padding: 2px;
 }
 
 .updateButton {
+    color: white;
     margin-left: 5px;
-    border-radius: 5px;
-    background-color: #e5e7eb;
-    text-align: center;
-    font-size: 120%;
-    padding: 2px;
 }
 
 .directoryName {
@@ -141,22 +138,31 @@
     font-size: 150%;
 }
 
+.directoryInput {
+    border: none;
+    width: 75%;
+    background-color: white;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.directoryInput {
+    border: none;
+    background-color: white;
+    border-radius: 5px;
+    padding: 0.5rem 0.75rem;
+    width: 75%
+}
 .fileInput {
     border: none;
-    width: 62%;
     background-color: white;
     border-radius: 5px 0px 0px 5px;
+    width: 70%;
 }
 
-.workToFileForm {
+.fileFormContainer {
     display: flex;
-    align-items: center;
     background-color: #1a202c;
-
-}
-
-.buttonContainer {
-    display: flex;
 }
 
 .containerUploadButton {
@@ -164,12 +170,12 @@
     height: 40px;
     width: 45px;
     display: flex;
-    justify-content: center;
     align-items: center;
     border-radius: 0px 5px 5px 0px;
 }
 
 .uploadButton {
+    margin-left: 10px;
     width: 0;
     height: 0;
     border-left: 15px solid transparent;
@@ -177,6 +183,9 @@
     border-top: 15px solid #2563eb;
     font-size: 0;
     line-height: 0;
-    float: left;;
+    float: left;
 }
 
+.renameDirectoryButton {
+    width: 25%
+}

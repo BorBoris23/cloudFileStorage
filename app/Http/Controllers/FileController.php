@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
-    public function index()
-    {
-        return (view('index'));
-    }
-
     public function store(StoreFileRequest $request)
     {
         foreach ($request->filesToUpload as $file) {
@@ -24,13 +19,13 @@ class FileController extends Controller
 
     public function destroy(Request $request)
     {
-        return Storage::disk('s3')->delete($request->pathToFile);
+        return Storage::disk('s3')->delete($request->pathTo);
     }
 
     public function rename(Request $request)
     {
-        $newFilePath = strtok($request->pathToFile, '/') . '/' . $request->newFileName;
-        return Storage::disk('s3')->move($request->pathToFile, $newFilePath);
+        $newFilePath = str_replace($request->oldFileName, $request->newFileName, $request->pathTo);
+        return Storage::disk('s3')->move($request->pathTo, $newFilePath);
     }
 
     public function upload(Request $request)
