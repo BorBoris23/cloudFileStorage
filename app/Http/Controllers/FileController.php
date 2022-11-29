@@ -30,6 +30,6 @@ class FileController extends Controller
 
     public function upload(Request $request)
     {
-        return Storage::disk('s3')->download($request->pathToFile);
+        return Storage::disk('s3')->download($request->pathTo);
     }
 }

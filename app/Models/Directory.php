@@ -6,16 +6,17 @@ use Illuminate\Support\Facades\Storage;
 
 class Directory extends AbstractModel
 {
-    public $items = [];
+    public $path;
 
-    public function __construct($pathToDirectory)
+    public function __construct($path)
     {
-        $this->items = $this->getDirectories($pathToDirectory);
+        parent::__construct();
+        $this->path = $this->rootDirectory . '/' . $path;
     }
 
-    public function getDirectories($pathToDirectory)
+    public function getDirectories()
     {
-        $directories = Storage::disk('s3')->directories($pathToDirectory);
-        return $this->getInfo($directories, $pathToDirectory);
+        $directories = Storage::disk('s3')->directories($this->path);
+        return $this->getInfo($directories);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
@@ -30,5 +31,8 @@ class AppServiceProvider extends ServiceProvider
             $view->with('routeName', Route::current()->getName());
             $view->with('authUser', Auth::user());
         });
+//        View::composer('searchPanel', function ($view) {
+//            $view->with('result', Route::post('/search', [SearchController::class, 'search']));
+//        });
     }
 }

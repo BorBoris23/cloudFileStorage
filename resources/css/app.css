@@ -23,9 +23,11 @@
     color: #e5e7eb;
 }
 
-.logAndLogout {
-    margin-left: auto;
-}
+/*.logAndLogout {*/
+/*    display: flex;*/
+/*    */
+/*    !*margin-left: auto;*!*/
+/*}*/
 
 .loginRegContainer {
     margin-top: 17%;
@@ -82,6 +84,7 @@
     padding: 3px;
 }
 
+.directoriesArea,
 .filesArea {
     width: 100%;
     background-color: white;
@@ -140,19 +143,12 @@
 
 .directoryInput {
     border: none;
-    width: 75%;
-    background-color: white;
-    border-radius: 5px;
-    text-align: left;
-}
-
-.directoryInput {
-    border: none;
     background-color: white;
     border-radius: 5px;
     padding: 0.5rem 0.75rem;
     width: 75%
 }
+
 .fileInput {
     border: none;
     background-color: white;
@@ -160,6 +156,8 @@
     width: 70%;
 }
 
+.workToDirectoryForm,
+.hiddenFormContainer,
 .fileFormContainer {
     display: flex;
     background-color: #1a202c;
@@ -188,4 +186,17 @@
 
 .renameDirectoryButton {
     width: 25%
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.searchResult {
+    display: flex;
+    flex-direction: column;
 }

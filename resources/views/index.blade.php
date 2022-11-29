@@ -16,15 +16,18 @@
             <div class="formContainer">
                 @include('uploadFileForm')
                 @include('uploadDirectoryForm')
-                @if(isset($directories->items))
-                    @include('directoryItems')
+                @if(!empty($content['directories']))
+                    {{ Breadcrumbs::render('toDirectory', $content['directories']) }}
+                @elseif(!empty($content['files']))
+                    {{ Breadcrumbs::render('toDirectory', $content['files']) }}
                 @endif
-                @if(!empty($files->items))
+                @if(!empty($content['files']))
                     @include('fileItems')
+                @endif
+                @if(!empty($content['directories']))
+                     @include('directoryItems')
                 @endif
             </div>
         </div>
     @endif
 @endsection
-
-{{--                <p class="textColor">no directories</p>--}}

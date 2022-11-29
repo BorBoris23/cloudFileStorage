@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDirectoryRequest;
-use App\Models\Directory;
-use App\Models\File;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 class DirectoryController extends Controller
@@ -20,14 +19,15 @@ class DirectoryController extends Controller
             $path = str_replace($filesName[$i], '',  $filesPath[$i]);
             Storage::disk('s3')->putFileAs($request->directory.'/'.$path, $request->directoryToUpload[$i], $filesName[$i]);
         }
-        return Redirect::to('/')->with('status', 'success')->withInput();
+        return Redirect::to(RouteServiceProvider::HOME)->with('status', 'success')->withInput();
     }
-    public function toDirectory($path)
+
+    public function rename(Request $request)
     {
-        $rootDirectory = Session::get('rootDirectory');
-        $currentDirectory = $rootDirectory . $path;
-        $directories = new Directory($currentDirectory);
-        $files = new File($currentDirectory);
-        return (view('index', compact( 'rootDirectory','directories', 'files')));
+        $directoryContents = Storage::disk('s3')->allFiles($request->pathTo);
+        foreach ($directoryContents as $directoryContent) {
+            $newPath = str_replace($request->oldDirectoryName, $request->newDirectoryName, $directoryContent);
+            Storage::disk('s3')->move($directoryContent, $newPath);
+        }
     }
 }

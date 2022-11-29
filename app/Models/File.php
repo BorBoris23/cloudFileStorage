@@ -6,16 +6,17 @@ use Illuminate\Support\Facades\Storage;
 
 class File extends AbstractModel
 {
-    public $items = [];
+    public $path;
 
-    public function __construct($pathToFile)
+    public function __construct($path)
     {
-        $this->items = $this->getFiles($pathToFile);
+        parent::__construct();
+        $this->path = $this->rootDirectory . '/' . $path;
     }
 
-    public function getFiles($pathToFile)
+    public function getFiles()
     {
-        $files = Storage::disk('s3')->files($pathToFile);
-        return $this->getInfo($files, $pathToFile);
+        $files = Storage::disk('s3')->files($this->path);
+        return $this->getInfo($files);
     }
 }

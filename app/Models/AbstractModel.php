@@ -6,23 +6,19 @@ use Illuminate\Support\Facades\Session;
 
 abstract class AbstractModel
 {
-    public function info($fullPath, $pathTo)
+    public $rootDirectory;
+
+    public function __construct()
     {
-        $object = array();
-        $object['name'] = str_replace($pathTo .'/', '', $fullPath);
-        $object['pathTo'] = $fullPath;
-        $object['pathToSubDirectory'] = str_replace(Session::get('rootDirectory'), '', $fullPath);
-        return $object;
+        $this->rootDirectory = Session::get('rootDirectory');
     }
 
-    public function getInfo($array, $path)
+    public function getInfo($array)
     {
         $items = [];
         foreach ($array as $item) {
-            $items[] = $this->info($item, $path);
+            $items[] = new S3Object($item);
         }
         return $items;
     }
 }
-
-

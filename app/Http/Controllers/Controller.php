@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Session;
 
 abstract class Controller extends BaseController
 {
@@ -16,9 +15,13 @@ abstract class Controller extends BaseController
 
     public function index()
     {
-        $rootDirectory = Session::get('rootDirectory');
-        $files = new File($rootDirectory);
-        $directories = new Directory($rootDirectory);
-        return (view('index', compact('rootDirectory','files', 'directories')));
+        $path = '';
+        if(!empty($_GET)) {
+            $path = $_GET['path'];
+        }
+        $content['files'] = (new File($path))->getFiles();
+        $content['directories'] = (new Directory($path))->getDirectories();
+
+        return (view('index', compact('content')));
     }
 }

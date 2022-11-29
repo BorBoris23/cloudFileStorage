@@ -1,23 +1,22 @@
-<div class="header">
-    <div class="headerContainer">
-        <div class="projectName textColor">
-           Cloud File Storage
+<div class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="collapse navbar-collapse navbar-nav mr-auto" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto">
+            <a class="navbar-brand" href="/">Cloud File Storage</a>
         </div>
-        <div class="logAndLogout">
-            @if(isset($authUser->name))
-            <div class="btn btn-sm btn-outline-secondary textColor">
+        @if(isset($authUser->name))
+            @include('layouts.searchPanel')
+            <div class="btn btn-dark">
                 {{$authUser->name}}
             </div>
-            <div class="btn btn-sm btn-outline-secondary textColor">
+            <div class="btn btn-dark">
                 @include('auth.logout')
             </div>
-            @else
-                @if($routeName !== 'login' && $routeName !== 'register')
-                    <a class="btn btn-sm btn-outline-secondary textColor" href="/login">Log in</a>
-                    <a class="btn btn-sm btn-outline-secondary textColor" href="/register">Sign up</a>
-                @endif
+        @else
+            @if($routeName !== 'login' && $routeName !== 'register')
+                <a class="btn btn-dark" href="/login">Log in</a>
+                <a class="btn btn-dark" href="/register">Sign up</a>
             @endif
-        </div>
+        @endif
     </div>
 </div>
 
