@@ -56,10 +56,10 @@ services:
             MINIO_ROOT_USER: 'admin'
             MINIO_ROOT_PASSWORD: 'password'
         volumes:
-            - 'sail-minio:/var/lib/minio'
+            - 'minio-data:/var/lib/minio'
         networks:
             - sail
-        command: 'server --address ":9099" --console-address ":9010" /data'
+        command: 'server --address ":9099" --console-address ":9010" /var/lib/minio'
         restart: always
 
     createbuckets:
@@ -83,5 +83,6 @@ networks:
 volumes:
     sail-mysql:
         driver: local
-    sail-minio:
+    minio-data:
         driver: local
+
