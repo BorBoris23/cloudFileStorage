@@ -2,82 +2,88 @@
 @tailwind components;
 @tailwind utilities;
 
-.body {
-    max-width: 100%;
-    max-height: 100%;
-}
-
-.header {
-    border: 1px solid black;
-    background-color: #1a202c;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.headerContainer {
-    margin: 5px 10px 5px 10px;
-    display: flex;
-}
-
 .textColor {
-    color: #e5e7eb;
+    color: white;
 }
-
-.logAndLogout {
-    margin-left: auto;
-}
-
-.loginRegContainer {
-    margin-top: 17%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.formLoginReg {
+.rightContainer {
     display: flex;
-    flex-direction: column;
-    border: 3px solid black;
-    background-color: #1a202c;
-    border-radius: 10px;
-    padding: 20px 20px 10px 20px;
+    justify-content: right;
 }
-
-.mainButton {
-    margin-bottom: 10px;
-    background-color: #e5e7eb;
-    text-align: center;
-    font-size: 250%;
-    color: #1a202c;
-    border-radius: 15px;
-}
-
-.submitButton {
-    padding: 5px 15px 5px 15px;
-    background-color: #e5e7eb;
-    text-align: center;
-    font-size: 100%;
-    color: #1a202c;
-    border-radius: 5px;
-}
-
 .dashboardContainer {
-    margin-top: 17%;
-    margin-left: auto;
-    margin-right: auto;
+    background-color: #E6E6FA;
 }
 
 .formContainer {
-    border: 3px solid black;
-    background-color: #1a202c;
+    display: flex;
+    margin-top: 5%;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.uploadForm {
+    padding: 10px;
+    width: 35%;
+    background-color: #212529;
+    border-radius: 10px;
+}
+
+.directoriesArea,
+.filesArea {
+    width: 100%;
+    background-color: white;
+}
+.submitColor{
+    background-color: #6c757d;
+}
+
+.directoryForm {
+    margin-left: auto;
+}
+
+.breadcrumbsContainer {
+    border: 5px solid #212529;
     border-radius: 10px;
     padding: 10px;
+    background-color: white;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
-.logo {
-    margin-left: auto;
-    margin-right: auto;
+.content {
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    column-gap: 11px;
 }
 
-.projectName {
-    padding-top: 3px;
+.fileContainer {
+    margin-top: 10px;
+    background-color: white;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.fileImg {
+    max-height: 150px;
+}
+
+.fileTextContainer{
+    word-wrap: break-word;
+    margin-top: 10px;
+    max-width: 150px;
+    text-align: center;
+}
+
+.actionButton {
+    display: flex;
+    justify-content: right;
+}
+
+.breadcrumb {
+    margin-bottom: 0;
+}
+
+.searchForm {
+    background-color: #212529
 }

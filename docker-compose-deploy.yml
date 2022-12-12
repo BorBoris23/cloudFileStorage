@@ -1,0 +1,74 @@
+version: "3.7"
+services:
+    app:
+        build:
+            context: .
+            dockerfile: php.Dockerfile
+        depends_on:
+            mysql:
+                condition: service_healthy
+        container_name: DeployApp
+
+    mysql:
+        image: 'mysql/mysql-server:8.0'
+        container_name: DeployMysql
+        ports:
+            - '${FORWARD_DB_PORT:-3306}:3306'
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+        volumes:
+            - 'mysql-data:/var/lib/mysql'
+        healthcheck:
+            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+            timeout: 20s
+            retries: 10
+
+    nginx:
+        build:
+            context: .
+            dockerfile: nginx.Dockerfile
+        ports:
+            - "80:80"
+        depends_on:
+            mysql:
+                condition: service_healthy
+        container_name: DeployNginx
+
+    s3:
+        image: 'minio/minio:latest'
+        container_name: DeployS3
+        ports:
+            - "9010:9010"
+            - "9099:9099"
+        restart: always
+        environment:
+            MINIO_ROOT_USER: 'admin'
+            MINIO_ROOT_PASSWORD: 'password'
+        volumes:
+            - 'minio-data:/var/lib/minio'
+        command: 'server --address ":9099" --console-address ":9010" /var/lib/minio'
+
+    createbuckets:
+        image: 'minio/mc'
+        depends_on:
+            - s3
+        entrypoint: >
+            /bin/sh -c "
+            /usr/bin/mc config host add s3 http://s3:9099 admin password;
+            /usr/bin/mc mb s3/user-files;
+            /usr/bin/mc policy download s3/user-files;
+            exit 0;
+            "
+
+volumes:
+    mysql-data:
+        driver: local
+    minio-data:
+        driver: local
+
+
+
