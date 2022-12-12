@@ -2,201 +2,88 @@
 @tailwind components;
 @tailwind utilities;
 
-.body {
-    max-width: 100%;
-    max-height: 100%;
-}
-
-.header {
-    border: 1px solid black;
-    background-color: #1a202c;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.headerContainer {
-    margin: 5px 10px 5px 10px;
-    display: flex;
-}
-
 .textColor {
-    color: #e5e7eb;
+    color: white;
 }
-
-/*.logAndLogout {*/
-/*    display: flex;*/
-/*    */
-/*    !*margin-left: auto;*!*/
-/*}*/
-
-.loginRegContainer {
-    margin-top: 17%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.formLoginReg {
+.rightContainer {
     display: flex;
-    flex-direction: column;
-    border: 3px solid black;
-    background-color: #1a202c;
-    border-radius: 10px;
-    padding: 20px 20px 10px 20px;
+    justify-content: right;
 }
-
-.mainButton {
-    margin-bottom: 10px;
-    background-color: #e5e7eb;
-    text-align: center;
-    font-size: 250%;
-    color: #1a202c;
-    border-radius: 15px;
-}
-
-.submitButton {
-    padding: 5px 15px 5px 15px;
-    background-color: #e5e7eb;
-    text-align: center;
-    font-size: 100%;
-    color: #1a202c;
-    border-radius: 5px;
-}
-
 .dashboardContainer {
-    margin-top: 17%;
-    margin-left: auto;
-    margin-right: auto;
+    background-color: #E6E6FA;
 }
 
 .formContainer {
-    border: 3px solid black;
-    background-color: #1a202c;
-    border-radius: 10px;
+    display: flex;
+    margin-top: 5%;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.uploadForm {
     padding: 10px;
-}
-
-.logo {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.projectName {
-    padding: 3px;
+    width: 35%;
+    background-color: #212529;
+    border-radius: 10px;
 }
 
 .directoriesArea,
 .filesArea {
     width: 100%;
     background-color: white;
-    border-radius: 5px;
 }
-
-.directoryHidden,
-.filesHidden {
-    /*opacity: 0;*/
-    width: 100%;
-    height: 50px;
-}
-
-.containerButton {
-    display: flex;
-    justify-content: left;
-}
-
-.helpText {
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.filesListContainer {
-    margin-top: 5px;
-    border-radius: 5px;
-    background-color: white;
-    color: black;
+.submitColor{
+    background-color: #6c757d;
 }
 
 .directoryForm {
+    margin-left: auto;
+}
+
+.breadcrumbsContainer {
+    border: 5px solid #212529;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: white;
     margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
-.myFilesButton {
-    margin-left: 10px;
+.content {
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    column-gap: 11px;
 }
 
-.deleteButton {
-    margin-left: 5px;
-}
-
-.updateButton {
-    color: white;
-    margin-left: 5px;
-}
-
-.directoryName {
+.fileContainer {
+    margin-top: 10px;
     background-color: white;
     padding: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.fileImg {
+    max-height: 150px;
+}
+
+.fileTextContainer{
+    word-wrap: break-word;
     margin-top: 10px;
-    border-radius: 5px;
-    color: black;
-    font-size: 150%;
+    max-width: 150px;
+    text-align: center;
 }
 
-.directoryInput {
-    border: none;
-    background-color: white;
-    border-radius: 5px;
-    padding: 0.5rem 0.75rem;
-    width: 75%
-}
-
-.fileInput {
-    border: none;
-    background-color: white;
-    border-radius: 5px 0px 0px 5px;
-    width: 70%;
-}
-
-.workToDirectoryForm,
-.hiddenFormContainer,
-.fileFormContainer {
+.actionButton {
     display: flex;
-    background-color: #1a202c;
+    justify-content: right;
 }
 
-.containerUploadButton {
-    background-color: white;
-    height: 40px;
-    width: 45px;
-    display: flex;
-    align-items: center;
-    border-radius: 0px 5px 5px 0px;
+.breadcrumb {
+    margin-bottom: 0;
 }
 
-.uploadButton {
-    margin-left: 10px;
-    width: 0;
-    height: 0;
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-top: 15px solid #2563eb;
-    font-size: 0;
-    line-height: 0;
-    float: left;
-}
-
-.renameDirectoryButton {
-    width: 25%
-}
-
-.hide {
-    display: none;
-}
-
-.show {
-    display: block;
-}
-
-.searchResult {
-    display: flex;
-    flex-direction: column;
+.searchForm {
+    background-color: #212529
 }

@@ -1,5 +1,3 @@
-@include('layouts.header')
-
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">

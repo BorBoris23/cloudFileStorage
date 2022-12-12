@@ -1,4 +1,4 @@
-<form method="POST" class="directoryForm" action="/uploadDirectory" enctype="multipart/form-data">
+<form method="POST" class="uploadForm directoryForm" action="/uploadDirectory" enctype="multipart/form-data">
     @csrf
     <div class="directoriesArea">
         <input type="file" name="directoryToUpload[]" class="directoryHidden" webkitdirectory multiple>
@@ -9,6 +9,6 @@
         <small id="emailHelp" class="form-text textColor">Move the directory to upload to the cloud.</small>
     </div>
     <div class="uploadContainerButton">
-        <button type="submit" class="submitButton">Upload directory</button>
+        <button type="submit" class="btn btn-secondary submitColor">Upload directory</button>
     </div>
 </form>

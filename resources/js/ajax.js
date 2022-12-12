@@ -7,28 +7,6 @@ $(document).ready (
         });
 
         $('.renameDirectoryButton').click(function () {
-            let thisContainer = $(this).next('div.hiddenFormContainer');
-            thisContainer.removeClass('hide');
-
-            let thisLink = $(this).prev('a.directoryInput');
-            thisLink.addClass('hide');
-
-            let thisButton = $(this);
-            thisButton.addClass('hide');
-        });
-
-        $('.cancelButton').click(function () {
-            let thisContainer = $(this).parent('div.hiddenFormContainer');
-            thisContainer.addClass('hide');
-
-            let thisLink = thisContainer.siblings('a.directoryInput');
-            thisLink.removeClass('hide');
-
-            let thisButton = thisContainer.siblings('button.renameDirectoryButton');
-            thisButton.removeClass('hide');
-        });
-
-        $('.renameButton').click(function () {
             renameDirectory();
         });
 
@@ -36,7 +14,7 @@ $(document).ready (
             deleteFile();
         });
 
-        $('.updateButton').click(function () {
+        $('.renameFileButton').click(function () {
             updateFile();
         });
 
@@ -49,9 +27,30 @@ $(document).ready (
             }
         });
 
+        function deleteFile() {
+            $('.workToFileForm').bind('submit', function(e) {
+                e.preventDefault();
+                let pathTo = $(this).find('input[name=pathTo]').val();
+                let data = `pathTo=${pathTo}`;
+                $(this).closest('div.fileContainer').remove();
+                $.ajax({
+                    type: "DELETE",
+                    data: data,
+                    url: `/workToFile`,
+                    success: function () {
+                        $('.workToFileForm').unbind('submit');
+                        // if($('.filesListContainer').length === 0) {
+                        //     $('.formContainer').append('<p class="textColor">no files</p>');
+                        // }
+                    }
+                });
+            });
+        }
+
         function updateFile() {
             $('.workToFileForm').bind('submit', function(e) {
                 e.preventDefault();
+                let parent = $(this).closest('div.fileContainer');
                 let pathTo = $(this).find('input[name=pathTo]').val();
                 let newPathToFile = $(this).find('input[name=newFileName]').val();
                 let oldPathToFile = $(this).find('input[name=oldFileName]').val();
@@ -62,26 +61,7 @@ $(document).ready (
                     url: `/workToFile`,
                     success: function () {
                         $('.workToFileForm').unbind('submit');
-                    }
-                });
-            });
-        }
-
-        function deleteFile() {
-            $('.workToFileForm').bind('submit', function(e) {
-                e.preventDefault();
-                let pathTo = $(this).find('input[name=pathTo]').val();
-                let data = `pathTo=${pathTo}`;
-                $(this).parent().remove();
-                $.ajax({
-                    type: "DELETE",
-                    data: data,
-                    url: `/workToFile`,
-                    success: function () {
-                        $('.workToFileForm').unbind('submit');
-                        if($('.filesListContainer').length === 0) {
-                            $('.formContainer').append('<p class="textColor">no files</p>');
-                        }
+                        parent.find('p[class=fileText]').html(`${newPathToFile}`);
                     }
                 });
             });
@@ -90,6 +70,7 @@ $(document).ready (
         function renameDirectory() {
             $('.workToDirectoryForm').bind('submit', function(e) {
                 e.preventDefault();
+                let parent = $(this).closest('div.fileContainer');
                 let pathTo = $(this).find('input[name=pathTo]').val();
                 let newPath = $(this).find('input[name=newDirectoryName]').val();
                 let oldPath = $(this).find('input[name=oldDirectoryName]').val();
@@ -100,6 +81,7 @@ $(document).ready (
                     url: `/renameDirectory`,
                     success: function () {
                         $('.workToDirectoryForm').unbind('submit');
+                        parent.find('a[class=fileText]').html(`${newPath}`);
                     }
                 });
             });
@@ -117,7 +99,7 @@ $(document).ready (
                 search($(this).val());
             }
             else {
-                $('.searchResult').remove();
+                $('.list-group').remove();
             }
         }));
 
@@ -128,7 +110,7 @@ $(document).ready (
                 data: data,
                 url: `/search`,
                 success: function (response) {
-                    $('.searchResult').remove();
+                    $('.list-group').remove();
                     $('.modal-content').append(createLinkContainer(response));
                 }
             });
@@ -136,9 +118,8 @@ $(document).ready (
 
         function createLinkContainer(response)
         {
-            console.log(response);
             let itemContainer = document.createElement('div');
-            itemContainer.setAttribute('class', 'searchResult');
+            itemContainer.setAttribute('class', 'list-group');
             for(let i = 0; i < response.length; i ++) {
                 let path = response[i].path;
                 let name = response[i].name;
@@ -154,6 +135,7 @@ $(document).ready (
                 linkPath = '/';
             }
             let item = document.createElement('a');
+            item.setAttribute('class', 'list-group-item list-group-item-action dashboardContainer');
             item.setAttribute('href', `${linkPath}`);
             item.textContent = `${name}`;
             return item;

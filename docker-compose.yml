@@ -69,7 +69,6 @@ services:
         entrypoint: >
             /bin/sh -c "
             /usr/bin/mc config host add s3 http://s3:9099 admin password;
-            /usr/bin/mc rm -r --force s3/user-files;
             /usr/bin/mc mb s3/user-files;
             /usr/bin/mc policy download s3/user-files;
             exit 0;

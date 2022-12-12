@@ -13,6 +13,8 @@ Breadcrumbs::for('toDirectory', function (BreadcrumbTrail $trail, $directories) 
     foreach ($piecesParentDirectories as $piece) {
         if($piece !== $directories[0]->rootDirectory) {
             $parentDirectories [] = $piece;
+        } else {
+            $piece = 'Home';
         }
         $trail->parent('home', $piece, $parentDirectories);
     }
