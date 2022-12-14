@@ -1,7 +1,7 @@
 <form method="POST" class="uploadForm directoryForm" action="/uploadDirectory" enctype="multipart/form-data">
     @csrf
     <div class="directoriesArea">
-        <input type="file" name="directoryToUpload[]" class="directoryHidden" webkitdirectory multiple>
+        <input required type="file" name="directoryToUpload[]" class="directoryHidden" webkitdirectory multiple>
     </div>
     <input type="hidden" name="folderName" class="folderName" value="">
     <input type="text" name="directory" class="hidden" value="{{Session::get('rootDirectory')}}">

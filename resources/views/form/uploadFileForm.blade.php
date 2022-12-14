@@ -1,7 +1,7 @@
 <form class="uploadForm" method="POST" action="/uploadFiles" enctype="multipart/form-data">
     @csrf
     <div class="filesArea">
-        <input type="file" name="filesToUpload[]" class="filesHidden" multiple>
+        <input required type="file" name="filesToUpload[]" class="filesHidden" multiple>
     </div>
     <input type="text" name="directory" class="hidden" value="{{Session::get('rootDirectory')}}">
     <div class="helpText">
