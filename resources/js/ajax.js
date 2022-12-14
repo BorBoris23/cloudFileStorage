@@ -39,8 +39,12 @@ $(document).ready (
                     url: `/workToFile`,
                     success: function () {
                         $('.workToFileForm').unbind('submit');
+                        if ( $('.content').children().length === 0 ) {
+                            $('.breadcrumbsContainer').remove();
+                        }
                         // if($('.filesListContainer').length === 0) {
-                        //     $('.formContainer').append('<p class="textColor">no files</p>');
+                        //
+                            // $('.formContainer').append('<p class="textColor">no files</p>');
                         // }
                     }
                 });
@@ -111,9 +115,21 @@ $(document).ready (
                 url: `/search`,
                 success: function (response) {
                     $('.list-group').remove();
-                    $('.modal-content').append(createLinkContainer(response));
+                    if(response.length !== 0 ) {
+                        $('.modal-content').append(createLinkContainer(response));
+                    } else {
+                        $('.modal-content').append(createMessage());
+                    }
                 }
             });
+        }
+
+        function createMessage()
+        {
+            let item = document.createElement('p');
+            item.setAttribute('class', 'list-group list-group-item list-group-item-action dashboardContainer');
+            item.textContent = 'no matches';
+            return item;
         }
 
         function createLinkContainer(response)

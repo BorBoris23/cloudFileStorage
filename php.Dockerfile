@@ -29,10 +29,14 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 
 COPY . /var/www
 
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
 COPY --chown=www:www . /var/www
 
 USER www
 
 RUN chmod +x run.sh
+
 RUN cp run.sh /tmp
+
 ENTRYPOINT ["/tmp/run.sh"]
