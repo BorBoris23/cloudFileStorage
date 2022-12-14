@@ -87,3 +87,16 @@
 .searchForm {
     background-color: #212529
 }
+
+.logoImgContainer {
+    max-height: 450px;
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 150px;
+
+}
+
+.logoImg {
+    border-radius: 10px;
+}

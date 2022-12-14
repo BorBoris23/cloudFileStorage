@@ -2,13 +2,19 @@
 
 @section('content')
     @include('layouts.header')
-    @if(isset($authUser->name))
-        <div class="col-12 min-vh-100 dashboardContainer">
+    <div class="col-12 min-vh-100 dashboardContainer">
+        @if(isset($authUser->name))
             @include('dashboardContainer')
-            @include('breadcrumbContainer')
+            @if(!empty($content['directories'] || !empty($content['files'])))
+                @include('breadcrumbContainer')
+            @endif
             @include('content.contentItems')
-        </div>
-    @endif
+        @else
+            <div class="logoImgContainer">
+                <img src="{{ URL('img/logo.jpg') }}" class="logoImg">
+            </div>
+        @endif
+    </div>
 @endsection
 
 

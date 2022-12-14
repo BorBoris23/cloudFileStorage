@@ -1,9 +1,5 @@
 <x-guest-layout>
     <x-auth-card>
-        <x-slot name="logo">
-            логотип
-        </x-slot>
-
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
