@@ -12,8 +12,8 @@ class SearchController
     public function search(Request $request)
     {
         $collection = [];
-        $contents = Storage::disk('s3')->allFiles();
-        foreach ($contents as $link) {
+        $content = $this->getContentCurrentUser(Storage::disk('s3')->allFiles(), Session::get('rootDirectory'));
+        foreach ($content as $link) {
             if (str_contains($link, $request->searchText)) {
                 $collection[] = $this->composeResponse(explode('/', str_replace(Session::get('rootDirectory') . '/', '', $link)), $request->searchText);
             }
@@ -31,5 +31,15 @@ class SearchController
             }
         }
         return $response;
+    }
+
+    private function getContentCurrentUser($content, $rootDirectory)
+    {
+        foreach ($content as $key => $value) {
+            if(!str_contains($value, $rootDirectory)) {
+                unset($content[$key]);
+            }
+        }
+        return array_merge($content);
     }
 }
