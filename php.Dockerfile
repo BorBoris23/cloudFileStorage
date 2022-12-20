@@ -1,3 +1,19 @@
+FROM node:latest as build
+
+WORKDIR /app
+
+COPY package*.json /app
+
+COPY vite.config.js /app/vite.config.js
+
+COPY resources /app/resources
+
+RUN npm install
+
+RUN npm update
+
+RUN npm run build
+
 FROM php:8.1-fpm
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
@@ -24,6 +40,8 @@ RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
 
 COPY . /var/www
+
+COPY --from=build /app/public /var/www/public
 
 COPY --chown=www:www . /var/www
 
