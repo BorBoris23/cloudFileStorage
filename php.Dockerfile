@@ -1,5 +1,7 @@
 FROM php:8.1-fpm
 
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
 WORKDIR /var/www
 
 RUN apt-get update && apt-get install -y \
@@ -18,22 +20,18 @@ RUN apt-get update && apt-get install -y \
 
 COPY ./docker/phpConf/php.ini /usr/local/etc/php/conf.d/php.ini
 
-ENV COMPOSER_ALLOW_SUPERUSER=1
-
-RUN curl -sS https://getcomposer.org/installer | php -- \
-    --filename=composer \
-    --install-dir=/usr/local/bin
-
 RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
 
 COPY . /var/www
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
 COPY --chown=www:www . /var/www
 
+RUN chown www:www /var/www
+
 USER www
+
+RUN composer install
 
 RUN chmod +x run.sh
 
