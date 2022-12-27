@@ -28,7 +28,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('*', function ($view) {
-            $view->with('routeName', Route::current()->getName());
+            if(!empty(Route::current())) {
+                $view->with('routeName', Route::current()->getName());
+            }
+//            $view->with('routeName', Route::current()->getName());
             $view->with('authUser', Auth::user());
         });
 //        View::composer('searchPanel', function ($view) {

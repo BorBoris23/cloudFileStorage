@@ -14,7 +14,7 @@
                 </form>
             </div>
         </div>
-        <img src="{{ URL('img/file.png') }}" class="fileImg">
+        <img src="{{ Vite::asset('resources/images/file.png') }}" class="fileImg">
         <div class="fileTextContainer">
             <p class="fileText">{{$file->name}}</p>
         </div>

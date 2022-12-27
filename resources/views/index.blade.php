@@ -11,7 +11,7 @@
             @include('content.contentItems')
         @else
             <div class="logoImgContainer">
-                <img src="{{ URL('img/logo.jpg') }}" class="logoImg">
+                <img src="{{ Vite::asset('resources/images/logo.jpg') }}" class="logoImg">
             </div>
         @endif
     </div>

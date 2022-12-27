@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 .textColor {
     color: white;
 }
@@ -94,9 +90,10 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 150px;
-
 }
 
 .logoImg {
+    max-height: 450px;
+    max-width: 450px;
     border-radius: 10px;
 }

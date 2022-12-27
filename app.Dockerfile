@@ -3,16 +3,18 @@ FROM node:latest as build
 WORKDIR /app
 
 COPY package.json /app
+
 COPY vite.config.js /app/vite.config.js
-COPY tailwind.config.js /app/tailwind.config.js
-COPY postcss.config.js /app/postcss.config.js
+
 COPY resources /app/resources
 
 RUN npm install
+
 RUN npm update
+
 RUN npm run build
 
-FROM php:8.1-fpm
+FROM dwchiang/nginx-php-fpm:latest
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
@@ -33,12 +35,15 @@ RUN apt-get update && apt-get install -y \
       rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY ./docker/phpConf/php.ini /usr/local/etc/php/conf.d/php.ini
+COPY  /docker/nginxConf/default.conf /etc/nginx/conf.d/*.conf
 
 RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
 
 COPY . /var/www
-COPY --from=build /app/public/build/manifest.json /var/www/public/build/manifest.json
+
+COPY --from=build /app/public /var/www/public
+
 COPY --chown=www:www . /var/www
 
 RUN chown www:www /var/www
@@ -46,7 +51,9 @@ RUN chown www:www /var/www
 USER www
 
 RUN composer install
+
 RUN chmod +x run.sh
+
 RUN cp run.sh /tmp
 
 ENTRYPOINT ["/tmp/run.sh"]

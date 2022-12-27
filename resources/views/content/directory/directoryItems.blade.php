@@ -12,7 +12,7 @@
                 </form>
             </div>
         </div>
-        <img src="{{ URL('img/3d_documents_folder_20533.png') }}" class="fileImg">
+        <img src="{{ Vite::asset('resources/images/3d_documents_folder_20533.png') }}" class="fileImg">
         <div class="fileTextContainer">
             <a class="fileText" href="/?path={{$directory->pathToSubDirectory}}">{{$directory->name}}</a>
         </div>
