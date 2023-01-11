@@ -15,6 +15,6 @@ RUN npm run build
 FROM nginx:latest
 
 WORKDIR /var/www
-COPY . .
+COPY /public /var/www/public
 COPY --from=build /app/public /var/www/public
 COPY /docker/nginxConf/default.conf /etc/nginx/conf.d/default.conf
