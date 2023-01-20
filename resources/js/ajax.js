@@ -6,18 +6,6 @@ $(document).ready (
             }
         });
 
-        $('.renameDirectoryButton').click(function () {
-            renameDirectory();
-        });
-
-        $('.deleteButton').click(function () {
-            deleteFile();
-        });
-
-        $('.renameFileButton').click(function () {
-            updateFile();
-        });
-
         $('.filesHidden').change(function ()
         {
             let files = this.files;
@@ -27,65 +15,86 @@ $(document).ready (
             }
         });
 
-        function deleteFile() {
+        $('.deleteFile').click(function () {
+            $(this).closest('div.fileContainer').remove();
+            deleteFile($(this).attr('path'));
+        });
+
+        function deleteFile(path) {
+            $.ajax({
+                type: "DELETE",
+                dataType: "json",
+                url: `/api/file?path=${path}`,
+                success: function () {
+                    $('.workToFileForm').unbind('submit');
+                    if ( $('.content').children().length === 0 ) {
+                        $('.breadcrumbsContainer').remove();
+                    }
+                }
+            });
+        }
+
+        $('.renameFile').click(function () {
+            renameFile();
+        });
+
+        function renameFile() {
             $('.workToFileForm').bind('submit', function(e) {
                 e.preventDefault();
-                let pathTo = $(this).find('input[name=pathTo]').val();
-                let data = `pathTo=${pathTo}`;
-                $(this).closest('div.fileContainer').remove();
+                let parent = $(this).closest('div.fileContainer');
+                let path = $(this).find('input[name=pathTo]').val();
+                let newPath = $(this).find('input[name=newFileName]').val();
+                let oldPath = $(this).find('input[name=oldFileName]').val();
                 $.ajax({
-                    type: "DELETE",
-                    data: data,
-                    url: `/workToFile`,
+                    type: "PATCH",
+                    dataType: "json",
+                    url: `/api/file?path=${path}&newPath=${newPath}&oldPath=${oldPath}`,
                     success: function () {
                         $('.workToFileForm').unbind('submit');
-                        if ( $('.content').children().length === 0 ) {
-                            $('.breadcrumbsContainer').remove();
-                        }
-                        // if($('.filesListContainer').length === 0) {
-                        //
-                            // $('.formContainer').append('<p class="textColor">no files</p>');
-                        // }
+                        parent.find('p[class=fileText]').html(`${newPath}`);
                     }
                 });
             });
         }
 
-        function updateFile() {
-            $('.workToFileForm').bind('submit', function(e) {
-                e.preventDefault();
-                let parent = $(this).closest('div.fileContainer');
-                let pathTo = $(this).find('input[name=pathTo]').val();
-                let newPathToFile = $(this).find('input[name=newFileName]').val();
-                let oldPathToFile = $(this).find('input[name=oldFileName]').val();
-                let data = `pathTo=${pathTo}&newFileName=${newPathToFile}&oldFileName=${oldPathToFile}`;
-                $.ajax({
-                    type: "PATCH",
-                    data: data,
-                    url: `/workToFile`,
-                    success: function () {
-                        $('.workToFileForm').unbind('submit');
-                        parent.find('p[class=fileText]').html(`${newPathToFile}`);
-                    }
-                });
+        $('.fileImg').dblclick(function() {
+            let path = $(this).attr('path');
+            downloadFile(path);
+        });
+
+        function downloadFile(path) {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: `/api/file?path=${path}`,
+                success: function (response) {
+                    let blob = new Blob([response]);
+                    let link=document.createElement('a');
+                    link.href=window.URL.createObjectURL(blob);
+                    link.download = response.name;
+                    link.click();
+                }
             });
         }
+
+        $('.renameDirectoryButton').click(function () {
+            renameDirectory();
+        });
 
         function renameDirectory() {
             $('.workToDirectoryForm').bind('submit', function(e) {
                 e.preventDefault();
                 let parent = $(this).closest('div.fileContainer');
-                let pathTo = $(this).find('input[name=pathTo]').val();
+                let path = $(this).find('input[name=pathTo]').val();
                 let newPath = $(this).find('input[name=newDirectoryName]').val();
                 let oldPath = $(this).find('input[name=oldDirectoryName]').val();
-                let data = `pathTo=${pathTo}&newDirectoryName=${newPath}&oldDirectoryName=${oldPath}`;
                 $.ajax({
                     type: "PATCH",
-                    data: data,
-                    url: `/renameDirectory`,
-                    success: function () {
+                    dataType: "json",
+                    url: `/api/directory?path=${path}&newPath=${newPath}&oldPath=${oldPath}`,
+                    success: function (response) {
                         $('.workToDirectoryForm').unbind('submit');
-                        parent.find('a[class=fileText]').html(`${newPath}`);
+                        parent.find('a[class=fileText]').html(`${response.newPath}`);
                     }
                 });
             });
@@ -108,11 +117,10 @@ $(document).ready (
         }));
 
         function search(thisInput) {
-            let data = `searchText=${thisInput}`;
             $.ajax({
-                type: "POST",
-                data: data,
-                url: `/search`,
+                type: "GET",
+                dataType: "json",
+                url: `/api/search?query=${thisInput}`,
                 success: function (response) {
                     $('.list-group').remove();
                     if(response.length !== 0 ) {

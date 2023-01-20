@@ -5,10 +5,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Enter the name of the file or directory</h5>
             </div>
-            <form class="form-inline my-2 my-lg-0 searchForm" method="POST" action="/search">
-                @csrf
-                <input class="form-control mr-sm-2 searchInput" type="text" name="searchText">
-            </form>
+            <input class="form-control mr-sm-2 searchInput" type="text" name="searchText">
         </div>
     </div>
 </div>

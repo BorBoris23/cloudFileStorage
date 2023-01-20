@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDirectoryRequest;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,12 +21,15 @@ class DirectoryController extends Controller
         return Redirect::to(RouteServiceProvider::HOME)->with('status', 'success')->withInput();
     }
 
-    public function rename(Request $request)
+    public function rename()
     {
-        $directoryContents = Storage::disk('s3')->allFiles($request->pathTo);
+        $directoryContents = Storage::disk('s3')->allFiles($_GET['path']);
         foreach ($directoryContents as $directoryContent) {
-            $newPath = str_replace($request->oldDirectoryName, $request->newDirectoryName, $directoryContent);
+            $newPath = str_replace($_GET['oldPath'], $_GET['newPath'], $directoryContent);
             Storage::disk('s3')->move($directoryContent, $newPath);
         }
+        $data = ['newPath' => $_GET['newPath']];
+        header('Content-type: application/json');
+        echo json_encode($data);
     }
 }

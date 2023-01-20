@@ -3,19 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Response;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 class SearchController
 {
-    public function search(Request $request)
+    public function search()
     {
         $collection = [];
         $content = $this->getContentCurrentUser(Storage::disk('s3')->allFiles(), Session::get('rootDirectory'));
         foreach ($content as $link) {
-            if (str_contains($link, $request->searchText)) {
-                $collection[] = $this->composeResponse(explode('/', str_replace(Session::get('rootDirectory') . '/', '', $link)), $request->searchText);
+            if (str_contains($link, $_GET['query'])) {
+                $collection[] = $this->composeResponse(explode('/', str_replace(Session::get('rootDirectory') . '/', '', $link)), $_GET['query']);
             }
         }
         return collect(call_user_func_array('array_merge', $collection))->unique()->values()->all();

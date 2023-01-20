@@ -59,7 +59,7 @@
     border: 2px solid black;
     border-radius: 10px;
 }
-
+.directoryImg,
 .fileImg {
     max-height: 150px;
 }
@@ -96,4 +96,25 @@
     max-height: 450px;
     max-width: 450px;
     border-radius: 10px;
+}
+
+.renameInput{
+    margin: 5px;
+    color: black;
+}
+
+.renameDirectory{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    padding: 5px;
+}
+
+.renameDirectoryInput{
+    margin-left: 10px;
+}
+
+.renameDirectoryButton{
+    border: 1px solid black;
+    border-radius: 5px;
 }

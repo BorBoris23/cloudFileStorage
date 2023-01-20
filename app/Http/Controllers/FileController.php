@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreFileRequest;
-use Illuminate\Http\Request;
+use App\Models\S3Object;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,19 +17,22 @@ class FileController extends Controller
         return Redirect::to('/')->with('status', 'success')->withInput();
     }
 
-    public function destroy(Request $request)
+    public function destroy()
     {
-        return Storage::disk('s3')->delete($request->pathTo);
+        return Storage::disk('s3')->delete($_GET['path']);
     }
 
-    public function rename(Request $request)
+    public function rename()
     {
-        $newFilePath = str_replace($request->oldFileName, $request->newFileName, $request->pathTo);
-        return Storage::disk('s3')->move($request->pathTo, $newFilePath);
+        $newFilePath = str_replace($_GET['oldPath'], $_GET['newPath'], $_GET['path']);
+        return Storage::disk('s3')->move($_GET['path'], $newFilePath);
     }
 
-    public function upload(Request $request)
+    public function download()
     {
-        return Storage::disk('s3')->download($request->pathTo);
+        Storage::disk('s3')->download($_GET['path']);
+        $data = ['name' => (new S3Object($_GET['path']))->name];
+        header('Content-type: application/json');
+        echo json_encode($data);
     }
 }
